@@ -3,3 +3,52 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.header>div>b>h1{
+  
+  font-weight: 600 !important;
+  line-height: 1.25;
+  font-size: 1.125rem;
+  
+}
+.header>div>h1{
+  font-weight: 600 !important;
+  line-height: 1.25;
+  font-size: 1.125rem;
+}
+
+.header>div>p{
+  font-weight: normal !important;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.search{
+  background-color: #302f2f ;
+}
+
+/* .header>div>p{
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  font-size: 1rem !important;
+} */
+
+
+
+.header>div>b>p{
+  font-weight: normal !important;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.header>div>p>b{
+  font-weight: 500 !important;
+  line-height: 1.25;
+  font-size: 1rem;
+  padding-top: 8px;
+}
+
+
+.container{
+  background-color: #302f2f;
+}

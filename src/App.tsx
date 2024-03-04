@@ -112,7 +112,7 @@ function App() {
         </select>
       </div>
       <input
-        className='w-3/5 h-11 rounded-full pl-4 border border-slate-500'
+        className='w-3/5 h-11 rounded-full pl-4 border border-slate-500 search'
         type='text'
         placeholder='Search plugins...'
         value={searchTerm}
@@ -128,9 +128,9 @@ function App() {
           <p>Loading...</p>
         ) : (
           plugins.map((plugin, index) => (
-            <div ref={plugins.length === index + 1 ? lastPluginElementRef : null} key={plugin.id || index.toString()} className="mt-4 p-4 border border-slate-300 rounded-lg w-80 mr-8">
-              <div className='' dangerouslySetInnerHTML={{ __html: plugin.chunk_html }} />
-              <p className="text-sm text-stone-400">{plugin.metadata.num_downloads}</p>
+            <div ref={plugins.length === index + 1 ? lastPluginElementRef : null} key={plugin.id || index.toString()} className="mt-4 p-6 rounded-lg w-96 mr-2 container">
+              <div className='header' dangerouslySetInnerHTML={{ __html: plugin.chunk_html }} />
+              <p className="text-sm text-stone-400 pt-2">{plugin.metadata.num_downloads}</p>
               <a href={plugin.link} target="_blank" rel="noreferrer" className="text-blue-500 hover:text-blue-700">Learn more</a>
             </div>
           ))
