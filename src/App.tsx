@@ -103,14 +103,7 @@ function App() {
     <div className='flex-row text-center'>
       <h1 className='text-5xl'>Trieve Search for Obsidian Plugins</h1>
       <p className='mt-6 mb-6  font-medium tag'>Explore Obsidian plugins made by the community.</p>
-      <div className='mb-4'>
-        <select value={searchType} onChange={(e) => setSearchType(e.target.value as SearchType)} className='mb-4, p-2 bg-slate-100
-         text-zinc-900 rounded-sm'>
-          <option value="semantic">Semantic</option>
-          <option value="hybrid">Hybrid</option>
-          <option value="fulltext">Fulltext</option>
-        </select>
-      </div>
+      <div className='flex relative justify-center'>
       <input
         className='w-3/5 h-11 rounded-full pl-4 border border-slate-500 search'
         type='text'
@@ -121,7 +114,17 @@ function App() {
           setPlugins([]);
           setPage(1);
         }}
+        
       />
+      <div className='mb-4 absolute main'>
+        <select value={searchType} onChange={(e) => setSearchType(e.target.value as SearchType)} className='mb-4, p-2
+         text-white h-11 rounded-e-full option border border-slate-500'>
+          <option value="semantic">Semantic</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="fulltext">Fulltext</option>
+        </select>
+      </div>
+      </div>
       </div>
       <div className='flex justify-center flex-wrap'>
         {loading && plugins.length === 0 ? (

@@ -25,7 +25,11 @@
   
 }
 
-.search{
+.main{
+  right: 20%
+}
+
+.search, .option{
   background-color: #302f2f ;
 }
 
