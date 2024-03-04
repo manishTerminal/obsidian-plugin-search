@@ -5,12 +5,11 @@
 }
 
 .header>div>b>h1{
-  
   font-weight: 600 !important;
   line-height: 1.25;
-  font-size: 1.125rem;
-  
+  font-size: 1.125rem;  
 }
+
 .header>div>h1{
   font-weight: 600 !important;
   line-height: 1.25;
@@ -21,8 +20,6 @@
   font-weight: normal !important;
   font-size: 0.875rem;
   line-height: 1.25rem;
-
-  
 }
 
 .main{
@@ -57,10 +54,13 @@
   padding-top: 8px;
 }
 
-
 .container{
   background-color: #302f2f;
 }
 .container:hover{
   background-color: #3d3c3c;
+}
+
+.highlight {
+  color: #4ADE80;
 }
