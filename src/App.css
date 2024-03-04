@@ -17,23 +17,28 @@
   font-size: 1.125rem;
 }
 
-.header>div>p{
+.header>div>p:first-of-type{
   font-weight: normal !important;
   font-size: 0.875rem;
   line-height: 1.25rem;
+
+  
 }
 
 .search{
   background-color: #302f2f ;
 }
 
-/* .header>div>p{
+.header>div>p:last-of-type{
   font-weight: 500 !important;
   line-height: 1.25 !important;
   font-size: 1rem !important;
-} */
+}
 
-
+.tag{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 
 .header>div>b>p{
   font-weight: normal !important;

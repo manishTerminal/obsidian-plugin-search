@@ -102,10 +102,10 @@ function App() {
     <>
     <div className='flex-row text-center'>
       <h1 className='text-5xl'>Trieve Search for Obsidian Plugins</h1>
-      <p className='mt-6 mb-6 text-lg font-medium'>Explore Obsidian plugins made by the community.</p>
-      <div className='mb-4 '>
+      <p className='mt-6 mb-6  font-medium tag'>Explore Obsidian plugins made by the community.</p>
+      <div className='mb-4'>
         <select value={searchType} onChange={(e) => setSearchType(e.target.value as SearchType)} className='mb-4, p-2 bg-slate-100
-         text-zinc-900 '>
+         text-zinc-900 rounded-sm'>
           <option value="semantic">Semantic</option>
           <option value="hybrid">Hybrid</option>
           <option value="fulltext">Fulltext</option>
