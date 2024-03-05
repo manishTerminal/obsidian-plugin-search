@@ -22,10 +22,6 @@
   line-height: 1.25rem;
 }
 
-.main{
-  right: 20%
-}
-
 .search, .option{
   background-color: #302f2f ;
 }
@@ -34,6 +30,10 @@
   font-weight: 500 !important;
   line-height: 1.25 !important;
   font-size: 1rem !important;
+}
+
+.option{
+  background-color: #8B5CF6;
 }
 
 .tag{
@@ -55,10 +55,10 @@
 }
 
 .container{
-  background-color: #302f2f;
+  background-color: #262626;
 }
 .container:hover{
-  background-color: #3d3c3c;
+  background-color: #313131;
 }
 
 .highlight {

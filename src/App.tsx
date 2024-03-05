@@ -31,7 +31,7 @@ const defaultSearchQuery =
 type SearchType = "semantic" | "hybrid" | "fulltext";
 
 function App() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const initialSearchTerm = searchParams.get("q") || defaultSearchQuery;
   const initialSearchType = (searchParams.get("searchType") ||
@@ -77,8 +77,7 @@ function App() {
 
   async function fetchPlugins(
     query: string = "",
-    currentPage: number = 1,
-    currentSearchType: SearchType
+    currentPage: number = 1
   ) {
     const requestBody = {
       query,
@@ -139,7 +138,7 @@ function App() {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      fetchPlugins(searchTerm, page, searchType);
+      fetchPlugins(searchTerm, page);
       setSearchParams({ q: searchTerm, searchType });
     }, 400);
 
@@ -148,12 +147,13 @@ function App() {
 
   return (
     <>
-      <div className="flex-row text-center">
+      <div className="flex-row ">
         <h1 className="text-5xl">Trieve Search for Obsidian Plugins</h1>
-        <p className="mt-6 mb-6  font-medium tag">
+        <p className="mt-6 mb-6  font-medium tag ">
           Explore Obsidian plugins made by the community.
         </p>
-        <div className="flex-row justify-center">
+        <div className= "border-slate-900 w-full">
+        <div className="mt-4">
           <input
             className="w-3/5 h-11 rounded-full pl-4 border border-slate-500 search"
             type="text"
@@ -165,7 +165,7 @@ function App() {
               setPage(1);
             }}
           />
-          <div className="mb-4 main">
+          <div className="mb-4 mt-2">
             <select
               value={searchType}
               onChange={(e) => {
@@ -174,7 +174,7 @@ function App() {
                 setPage(1);
               }}
               className="mb-4, p-2
-         text-white h-11 rounded option border border-slate-500 mt-2"
+         text-white h-11 rounded option border-collapse mt-2 text-sm option"
             >
               <option value="semantic">Semantic</option>
               <option value="hybrid">Hybrid</option>
@@ -182,8 +182,9 @@ function App() {
             </select>
           </div>
         </div>
+        </div>
       </div>
-      <div className="flex justify-center flex-wrap">
+      <div className="flex  flex-wrap">
         {plugins.map((plugin, index) => (
           <div
             ref={plugins.length === index + 1 ? lastPluginElementRef : null}
