@@ -119,9 +119,17 @@ function App() {
     }
   }
 
+  // useEffect(() => {
+  //   fetchPlugins(searchTerm, page);
+  //   setSearchParams({ q: searchTerm, searchType });
+  // }, [searchTerm, page, searchType, setSearchParams]);
+
   useEffect(() => {
-    fetchPlugins(searchTerm, page);
-    setSearchParams({ q: searchTerm, searchType });
+    const delayDebounceFn = setTimeout(() => {
+      fetchPlugins(searchTerm, page);
+      setSearchParams({ q: searchTerm, searchType });
+    }, 400);
+    return () => clearTimeout(delayDebounceFn);
   }, [searchTerm, page, searchType, setSearchParams]);
 
   return (
