@@ -2,6 +2,19 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./App.css";
 
+interface ScoreChunk {
+  metadata: Array<{
+    chunk_html: string;
+    metadata: {
+      num_downloads: string;
+    };
+  }>;
+}
+
+interface DataResponse {
+  score_chunks: ScoreChunk[];
+}
+
 interface PluginMetadata {
   num_downloads: string;
 }
@@ -102,9 +115,9 @@ function App() {
         throw new Error(`API responded with status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: DataResponse = await response.json();
 
-      const highlightedPlugins = data.score_chunks.map((chunk: any) => {
+      const highlightedPlugins = data.score_chunks.map((chunk: ScoreChunk) => {
         const highlightedContent = highlightKeywords(
           chunk.metadata[0].chunk_html,
           query
