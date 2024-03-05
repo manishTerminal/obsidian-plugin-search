@@ -43,6 +43,15 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
+  const copyToClipboard = (url: string) => {
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {})
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
   const observer = useRef<IntersectionObserver>();
   const lastPluginElementRef = useCallback(
     (node: Element | null) => {
@@ -66,7 +75,11 @@ function App() {
     );
   }
 
-  async function fetchPlugins(query: string = "", currentPage: number = 1) {
+  async function fetchPlugins(
+    query: string = "",
+    currentPage: number = 1,
+    currentSearchType: SearchType
+  ) {
     const requestBody = {
       query,
       search_type: searchType,
@@ -126,9 +139,10 @@ function App() {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      fetchPlugins(searchTerm, page);
+      fetchPlugins(searchTerm, page, searchType);
       setSearchParams({ q: searchTerm, searchType });
     }, 400);
+
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm, page, searchType, setSearchParams]);
 
@@ -154,7 +168,11 @@ function App() {
           <div className="mb-4 absolute main">
             <select
               value={searchType}
-              onChange={(e) => setSearchType(e.target.value as SearchType)}
+              onChange={(e) => {
+                setSearchType(e.target.value as SearchType);
+                setPlugins([]);
+                setPage(1);
+              }}
               className="mb-4, p-2
          text-white h-11 rounded-e-full option border border-slate-500"
             >
@@ -186,6 +204,12 @@ function App() {
               className="text-blue-500 hover:text-blue-700"
             >
               Learn more
+            </a>
+            <a
+              onClick={() => copyToClipboard(plugin.link)}
+              className="text-blue-500 hover:text-blue-700 ml-4 text-sm "
+            >
+              Copy Link
             </a>
           </div>
         ))}
