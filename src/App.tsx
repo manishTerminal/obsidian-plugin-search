@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import "./App.css";
 
 interface PluginMetadata {
@@ -30,8 +31,14 @@ const defaultSearchQuery =
 type SearchType = "semantic" | "hybrid" | "fulltext";
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState<string>(defaultSearchQuery);
-  const [searchType, setSearchType] = useState<SearchType>("semantic");
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const initialSearchTerm = searchParams.get("q") || defaultSearchQuery;
+  const initialSearchType = (searchParams.get("searchType") ||
+    "semantic") as SearchType;
+
+  const [searchTerm, setSearchTerm] = useState<string>(initialSearchTerm);
+  const [searchType, setSearchType] = useState<SearchType>(initialSearchType);
   const [plugins, setPlugins] = useState<Plugin[]>([]);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -52,8 +59,11 @@ function App() {
 
   function highlightKeywords(text: string, keyword: string): string {
     if (!keyword.trim()) return text;
-    const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return text.replace(new RegExp(escapedKeyword, 'gi'), (match) => `<span class="highlight">${match}</span>`);
+    const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return text.replace(
+      new RegExp(escapedKeyword, "gi"),
+      (match) => `<span class="highlight">${match}</span>`
+    );
   }
 
   async function fetchPlugins(query: string = "", currentPage: number = 1) {
@@ -63,8 +73,6 @@ function App() {
       page: currentPage,
       page_size: 30,
     };
-
-    console.log("Request Body:", requestBody);
 
     try {
       const response = await fetch("https://api.trieve.ai/api/chunk/search", {
@@ -85,16 +93,17 @@ function App() {
       const data = await response.json();
 
       const highlightedPlugins = data.score_chunks.map((chunk: any) => {
-        const highlightedContent = highlightKeywords(chunk.metadata[0].chunk_html, query);
+        const highlightedContent = highlightKeywords(
+          chunk.metadata[0].chunk_html,
+          query
+        );
         return {
           ...chunk.metadata[0],
           chunk_html: highlightedContent,
           num_downloads: chunk.metadata[0].metadata.num_downloads,
         };
       });
-  
 
-    
       console.log("Response Data:", data);
       setPlugins((prevPlugins) => [
         ...prevPlugins,
@@ -112,7 +121,8 @@ function App() {
 
   useEffect(() => {
     fetchPlugins(searchTerm, page);
-  }, [searchTerm, page, searchType]);
+    setSearchParams({ q: searchTerm, searchType });
+  }, [searchTerm, page, searchType, setSearchParams]);
 
   return (
     <>
@@ -151,7 +161,7 @@ function App() {
         {plugins.map((plugin, index) => (
           <div
             ref={plugins.length === index + 1 ? lastPluginElementRef : null}
-            key={`${plugin.id}-${index}`} 
+            key={`${plugin.id}-${index}`}
             className="mt-4 p-6 rounded-lg w-96 mr-2 container"
           >
             <div
