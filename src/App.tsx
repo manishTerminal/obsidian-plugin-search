@@ -153,7 +153,7 @@ function App() {
         <p className="mt-6 mb-6  font-medium tag">
           Explore Obsidian plugins made by the community.
         </p>
-        <div className="flex relative justify-center">
+        <div className="flex-row justify-center">
           <input
             className="w-3/5 h-11 rounded-full pl-4 border border-slate-500 search"
             type="text"
@@ -165,7 +165,7 @@ function App() {
               setPage(1);
             }}
           />
-          <div className="mb-4 absolute main">
+          <div className="mb-4 main">
             <select
               value={searchType}
               onChange={(e) => {
@@ -174,7 +174,7 @@ function App() {
                 setPage(1);
               }}
               className="mb-4, p-2
-         text-white h-11 rounded-e-full option border border-slate-500"
+         text-white h-11 rounded option border border-slate-500 mt-2"
             >
               <option value="semantic">Semantic</option>
               <option value="hybrid">Hybrid</option>
